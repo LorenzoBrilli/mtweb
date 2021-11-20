@@ -1,0 +1,6 @@
+.bg-img { 
+    size : 100%;
+    background: url(../assets/hero.jpg) no-repeat center center fixed;
+    background-size: cover;
+    background-color: #999;
+}
