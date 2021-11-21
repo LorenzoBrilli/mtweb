@@ -1,6 +1,6 @@
 .bg-img { 
     size : 100%;
-    background: url(../assets/hero.jpg) no-repeat center center fixed;
+    background: url(../assets/hero.jpg) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
