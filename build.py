@@ -12,10 +12,10 @@ footer = ''
 
 print('deleting dist... ', end='', flush=True)
 try:
-  shutil.rmtree('dist')
+  shutil.rmtree('docs')
 except:
   pass
-os.makedirs('dist')
+os.makedirs('docs')
 print('done')
 
 # get data
@@ -38,30 +38,30 @@ print('done')
 
 # write files
 print('building website... ', end='', flush=True)
-with open('dist/index.html','w') as f:
+with open('docs/index.html','w') as f:
   f.write(header)
   f.write(navigation)
   f.write(index)
   f.write(footer)
-with open('dist/attivita.html','w') as f:
+with open('docs/attivita.html','w') as f:
   f.write(header)
   f.write(navigation)
   f.write(attivita)
   f.write(footer)
-with open('dist/approfondimenti.html','w') as f:
+with open('docs/approfondimenti.html','w') as f:
   f.write(header)
   f.write(navigation)
   f.write(approfondimenti)
   f.write(footer)
-with open('dist/news.html','w') as f:
+with open('docs/news.html','w') as f:
   f.write(header)
   f.write(navigation)
   f.write(news)
   f.write(footer)
 print('done')
 
-print('copyng assets... ', end='', flush=True)
-shutil.copytree('src/assets','dist/assets')
-shutil.copytree('src/js','dist/js')
-shutil.copytree('src/style','dist/style')
+print('copying assets... ', end='', flush=True)
+shutil.copytree('src/assets','docs/assets')
+shutil.copytree('src/js','docs/js')
+shutil.copytree('src/style','docs/style')
 print('done')
