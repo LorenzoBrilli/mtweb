@@ -18,6 +18,41 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ----- Cookie Banner ----- //
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function checkCookieConsent(){
+  let consent = getCookie("cookie-consent");
+  let banner = document.getElementById("cookie-banner");
+  if (consent == "true"){
+    banner.classList.add("is-hidden");
+    map1 = document.getElementById('map1')
+    map1.innerHTML = `<iframe class="has-ratio"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11680.227838174136!2d12.692656199796973!3d42.956004072483935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132e85c52fe700f1%3A0x29b8c4ea64a92138!2sVia%20Maurizio%20Quadrio%2C%2010%2C%2006034%20Foligno%20PG!5e0!3m2!1sit!2sit!4v1636326339997!5m2!1sit!2sit"
+    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`
+   } else {
+    banner.classList.remove("is-hidden");
+  }
+}
+function consentCookies(){
+  document.cookie = "cookie-consent=true";
+  checkCookieConsent();
+}
+checkCookieConsent()
+
 // ----- html fragment behinf menu ----- //
 (function(document, history, location) {
   var HISTORY_SUPPORT = !!(history && history.pushState);
