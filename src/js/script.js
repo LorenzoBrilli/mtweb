@@ -53,8 +53,8 @@ function consentCookies(){
 }
 checkCookieConsent()
 
-// ----- html fragment behinf menu ----- //
-(function(document, history, location) {
+// ----- html fragment behind menu ----- //
+function htmlfragment(document, history, location) {
   var HISTORY_SUPPORT = !!(history && history.pushState);
 
   var anchorScrolls = {
@@ -132,4 +132,5 @@ checkCookieConsent()
   window.addEventListener(
     'DOMContentLoaded', anchorScrolls.init.bind(anchorScrolls)
   );
-})(window.document, window.history, window.location);
+}
+htmlfragment(window.document, window.history, window.location);
