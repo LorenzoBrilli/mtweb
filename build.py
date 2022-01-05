@@ -8,6 +8,7 @@ index = ''
 attivita = ''
 approfondimenti = ''
 news = ''
+cookie_policy = ''
 footer = ''
 
 print('deleting dist... ', end='', flush=True)
@@ -32,6 +33,8 @@ with open('src/40_approfondimenti.html','r') as f:
   approfondimenti = f.read()
 with open('src/50_news.html','r') as f:
   news = f.read()
+with open('src/90_cookie-policy.html','r') as f:
+  cookie_policy = f.read()
 with open('src/99_footer.html','r') as f:
   footer = f.read()
 print('done')
@@ -57,6 +60,11 @@ with open('docs/news.html','w') as f:
   f.write(header)
   f.write(navigation)
   f.write(news)
+  f.write(footer)
+with open('docs/cookie-policy.html','w') as f:
+  f.write(header)
+  f.write(navigation)
+  f.write(cookie_policy)
   f.write(footer)
 print('done')
 

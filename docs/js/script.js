@@ -34,21 +34,57 @@ function getCookie(cname) {
   }
   return "";
 }
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  let expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + "; SameSite=Lax";
+}
 function checkCookieConsent(){
-  let consent = getCookie("cookie-consent");
-  let banner = document.getElementById("cookie-banner");
-  if (consent == "true"){
-    banner.classList.add("is-hidden");
-    map1 = document.getElementById('map1')
-    map1.innerHTML = `<iframe class="has-ratio"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11680.227838174136!2d12.692656199796973!3d42.956004072483935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132e85c52fe700f1%3A0x29b8c4ea64a92138!2sVia%20Maurizio%20Quadrio%2C%2010%2C%2006034%20Foligno%20PG!5e0!3m2!1sit!2sit!4v1636326339997!5m2!1sit!2sit"
-    width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`
-   } else {
-    banner.classList.remove("is-hidden");
+  // check banner already closed
+  let bannerClosed = getCookie("cookie-banner-closed")
+  let banner = document.getElementById("cookie-banner")
+  if (bannerClosed == "true") banner.classList.add("is-hidden")
+  else banner.classList.remove("is-hidden")
+  // check cookie-consent
+  let consent = getCookie("cookie-consent")
+  consent = consent == 'true'
+  // check if map is present
+  let map1 = document.getElementById('map1')
+  if (map1 != null){
+    if (consent){
+      map1.innerHTML = `<iframe class="has-ratio"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11680.227838174136!2d12.692656199796973!3d42.956004072483935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132e85c52fe700f1%3A0x29b8c4ea64a92138!2sVia%20Maurizio%20Quadrio%2C%2010%2C%2006034%20Foligno%20PG!5e0!3m2!1sit!2sit!4v1636326339997!5m2!1sit!2sit"
+      width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>`
+     } else {
+      map1.innerHTML = ''
+    }
+  }
+  // check if cookie control panel is present
+  let consent_google_yes = document.getElementById('consent-google-yes')
+  let consent_google_no = document.getElementById('consent-google-no')
+  if (consent_google_yes != null){
+    if (consent) {
+      consent_google_yes.classList.add("is-success")
+      consent_google_yes.classList.add("is-selected")
+      consent_google_no.classList.remove("is-danger")
+      consent_google_no.classList.remove("is-selected")
+    } else {
+      consent_google_yes.classList.remove("is-success")
+      consent_google_yes.classList.remove("is-selected")
+      consent_google_no.classList.add("is-danger")
+      consent_google_no.classList.add("is-selected")
+    }
   }
 }
 function consentCookies(){
-  document.cookie = "cookie-consent=true";
+  setCookie("cookie-banner-closed","true",30)
+  setCookie("cookie-consent","true",30)
+  checkCookieConsent();
+}
+function rejectCookies(){
+  setCookie("cookie-banner-closed","true",30)
+  setCookie("cookie-consent","false",30)
   checkCookieConsent();
 }
 checkCookieConsent()
